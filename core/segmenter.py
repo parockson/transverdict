@@ -89,9 +89,13 @@ def process_segmentation(df: pd.DataFrame) -> pd.DataFrame:
         "WINWIN GAMES": "Corporate",
         "WIWI GAMING AND ENTERTAINMENT LIMITED": "Corporate",
         "Smb Mtn Products": "SMB",
-
-
+        "Roverman Production": "Corporate",
+        "BET BOOKER ENTERTAINMENT LTD": "Corporate",
+        "HANYPAY GHANA LTD": "Corporate",
+        "PRESBYTERIAN CHURCH OF GHANA": "Corporate"
     }
+
+
 
     # 2. Failure Wildcard Mapping
     # Looks for keywords in technical logs to produce a "clean" human-readable message
