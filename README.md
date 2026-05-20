@@ -56,7 +56,8 @@ transverdict/
 
 2. **Interact with the Dashboard:**
    - Open the provided local URL in your web browser.
-   - Upload your transaction dataset (`.csv` or `.xlsx`).
+   - Download your transaction data **only** from the [Metabase Question 4590 (User Transaction Table)](https://metabase.korba365.com/question/4590-user-transaction-table).
+   - Upload the downloaded `.csv` or `.xlsx` file.
    - Click **"🚀 Process Data & Generate Reports"**.
    - Navigate through the "Transformed Data", "Analysis Tables", and "Visual Dashboard" tabs to review the insights.
    - Download the formatted Excel report or the cleaned CSV using the provided buttons.

@@ -20,6 +20,9 @@ st.markdown("""
 st.title("⚖️ TransVerdict: Automated Batch Analysis")
 st.markdown("Upload your transaction data below. The system will clean, segment, and analyze all metrics in one pass.")
 
+# Metabase Download Source Notice
+st.info("💡 **Important Notice:** Please download your transaction data **only** from this [Metabase Link](https://metabase.korba365.com/question/4590-user-transaction-table) before uploading.")
+
 # --- FILE UPLOAD ---
 uploaded_file = st.file_uploader("Drop your CSV or Excel file here", type=['csv', 'xlsx'])
 
