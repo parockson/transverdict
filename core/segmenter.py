@@ -92,7 +92,10 @@ def process_segmentation(df: pd.DataFrame) -> pd.DataFrame:
         "Roverman Production": "Corporate",
         "BET BOOKER ENTERTAINMENT LTD": "Corporate",
         "HANYPAY GHANA LTD": "Corporate",
-        "PRESBYTERIAN CHURCH OF GHANA": "Corporate"
+        "PRESBYTERIAN CHURCH OF GHANA": "Corporate",
+        "TENSCORE TECHNOLOGY LTD (WINSLOTS)": "Corporate",
+        "DARTEY CYBER SOLUTION": "Corporate",
+        "mNotify Company Limited": "Corporate"
     }
 
 
