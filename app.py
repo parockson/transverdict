@@ -66,9 +66,11 @@ if uploaded_file:
             }
 
             # 2f. Final Message Summary
-            msg_summary = df_final['final_message'].value_counts().reset_index()
-            msg_summary.columns = ['Final Message', 'Count']
-            msg_summary['Percentage'] = (msg_summary['Count'] / msg_summary['Count'].sum())
+            # Group by both error_segment and final_message to show counts and percentages
+            msg_summary = df_final.groupby(['error_segment', 'final_message'], as_index=False).size()
+            msg_summary.columns = ['Error Segment', 'Final Message', 'Count']
+            msg_summary['Percentage'] = msg_summary['Count'] / msg_summary['Count'].sum()
+            msg_summary = msg_summary.sort_values(by='Count', ascending=False).reset_index(drop=True)
             reports_dict["Final Message Summary"] = msg_summary
 
             # Generate formatted Excel binary
