@@ -98,18 +98,19 @@ if uploaded_file:
                     data=excel_binary,
                     file_name="TransVerdict_Analysis_Full.xlsx",
                     mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-                    use_container_width=True
+                    width='stretch'
                 )
             with col_dl2:
                 csv = df_final.to_csv(index=False).encode('utf-8')
-                st.download_button("📥 Download Cleaned CSV", data=csv, use_container_width=True)
+                st.download_button("📥 Download Cleaned CSV", data=csv, width='stretch')
 
             # UI Viewport
             tab_data, tab_reports, tab_plots = st.tabs(["📋 Transformed Data", "📑 Analysis Tables", "📊 Visual Dashboard"])
 
             with tab_data:
                 st.subheader("Final Processed Dataset")
-                st.dataframe(df_final, use_container_width=True, hide_index=True)
+                st.dataframe(df_final.head(1000), width='stretch', hide_index=True)
+                st.caption("ℹ️ Showing the first 1,000 rows as a preview. Use the download buttons above to obtain the complete dataset.")
 
             with tab_reports:
                 st.subheader("Statistical Breakdowns")
@@ -120,7 +121,7 @@ if uploaded_file:
                         pct_cols = [c for c in rdf.columns if '%' in c or 'Percentage' in c]
                         st.dataframe(
                             rdf, 
-                            use_container_width=True, 
+                            width='stretch', 
                             hide_index=True,
                             column_config={c: st.column_config.NumberColumn(format="%.2f%%") for c in pct_cols}
                         )
@@ -130,12 +131,12 @@ if uploaded_file:
                 # Layout based on user request (3a-d)
                 c1, c2 = st.columns(2)
                 with c1:
-                    st.plotly_chart(visuals['fig_a'], use_container_width=True)
+                    st.plotly_chart(visuals['fig_a'], width='stretch')
                 with c2:
-                    st.plotly_chart(visuals['fig_b'], use_container_width=True)
+                    st.plotly_chart(visuals['fig_b'], width='stretch')
                 
-                st.plotly_chart(visuals['fig_c'], use_container_width=True)
-                st.plotly_chart(visuals['fig_d'], use_container_width=True)
+                st.plotly_chart(visuals['fig_c'], width='stretch')
+                st.plotly_chart(visuals['fig_d'], width='stretch')
 
         except Exception as e:
             st.error(f"An error occurred during processing: {e}")

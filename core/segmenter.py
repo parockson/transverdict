@@ -106,6 +106,8 @@ def process_segmentation(df: pd.DataFrame) -> pd.DataFrame:
     ("lowest", "Amount below minimum"),
 
     ("duplicate", "Duplicate Transaction ID"),
+    ("Transaction expired", "Time Out"),
+    ("Transaction_expired", "Time Out"),
 
     ("an error occurred", "External Application Error"),
     ("alert ID", "External Application Error"),

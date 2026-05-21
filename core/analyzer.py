@@ -359,16 +359,19 @@ def generate_visuals(df):
     Generates Plotly charts for the visual dashboard tab.
     """
     # a. Status by Biz Segment (Column Chart)
-    fig_a = px.bar(df, x='biz_segment', color='transaction_status', barmode='group', 
+    df_grouped_a = df.groupby(['biz_segment', 'transaction_status']).size().reset_index(name='count')
+    fig_a = px.bar(df_grouped_a, x='biz_segment', y='count', color='transaction_status', barmode='group', 
                    title="Transaction Status by Business Segment")
     
     # b. Status by Tran Type (Column Chart)
     type_col = next((c for c in df.columns if 'type' in c), 'transaction_type')
-    fig_b = px.bar(df, x=type_col, color='transaction_status', barmode='group', 
+    df_grouped_b = df.groupby([type_col, 'transaction_status']).size().reset_index(name='count')
+    fig_b = px.bar(df_grouped_b, x=type_col, y='count', color='transaction_status', barmode='group', 
                    title="Transaction Status by Type")
     
     # c. Distribution of Error Segments (Including Success/Operational)
-    fig_c = px.pie(df, names='error_segment', 
+    df_grouped_c = df.groupby('error_segment').size().reset_index(name='count')
+    fig_c = px.pie(df_grouped_c, names='error_segment', values='count',
                    title="Overall Distribution: Success vs Failure Segments",
                    hole=0.4, # Donut style
                    color_discrete_sequence=px.colors.qualitative.Safe)
