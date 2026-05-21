@@ -1,6 +1,3 @@
-from streamlit.proto import ArrowNamedDataSet_pb2
-from token import PLUS
-from ctypes.wintypes import POINT
 import pandas as pd
 
 def process_segmentation(df: pd.DataFrame) -> pd.DataFrame:
