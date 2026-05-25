@@ -92,7 +92,9 @@ def process_segmentation(df: pd.DataFrame) -> pd.DataFrame:
         "PRESBYTERIAN CHURCH OF GHANA": "Corporate",
         "TENSCORE TECHNOLOGY LTD (WINSLOTS)": "Corporate",
         "DARTEY CYBER SOLUTION": "Corporate",
-        "mNotify Company Limited": "Corporate"
+        "mNotify Company Limited": "Corporate",
+        "Top Connect Limited": "Corporate"
+
     }
 
 
@@ -214,7 +216,7 @@ def process_segmentation(df: pd.DataFrame) -> pd.DataFrame:
 
     # 3. Error Segment Mapping
     # Categorizes the "Final Message" into a responsibility segment
-    # 'Operational' is used for successful or pending transactions
+    # 'Op. Success' is used for successful or pending transactions
     error_segment_map = {
         "Amount below minimum": "Customer",
         "Duplicate Transaction ID": "External",
@@ -251,10 +253,13 @@ def process_segmentation(df: pd.DataFrame) -> pd.DataFrame:
 
         # Handle Success/Pending first (No Error Segment needed)
         if status in ['success', 'pending', 'reprocessing', 'approved']:
-            return status.capitalize(), "Operational"
+            return status.capitalize(), "Op. Success"
 
         # Handle Failures
         if status == 'failed' or status == 'error':
+            if not msg:
+                return None, "External"
+
             final_msg = "Uncategorized Failure"
             
             # Check tech message against wildcards
@@ -268,7 +273,7 @@ def process_segmentation(df: pd.DataFrame) -> pd.DataFrame:
             return final_msg, err_seg
             
         # Fallback for undefined statuses
-        return "Unknown Status", "Operational"
+        return "Unknown Status", "Op. Success"
 
     # C. Apply the logic across the dataframe
     df[['final_message', 'error_segment']] = df.apply(

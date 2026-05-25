@@ -8,7 +8,7 @@ def generate_pivot_report(df, index_cols):
     Percentages are returned as decimals (e.g., 0.85) for professional formatting.
     """
     # Ensure all segments are represented
-    segments = ['External', 'Customer', 'Internal', 'Operational']
+    segments = ['External', 'Customer', 'Internal', 'Op. Success']
     
     # Create pivot for counts
     pivot_count = df.pivot_table(
@@ -34,7 +34,7 @@ def generate_pivot_report(df, index_cols):
         'External': ('Ext Count', 'Ext %'),
         'Customer': ('Cust Count', 'Cust %'),
         'Internal': ('Inte Count', 'Inte %'),
-        'Operational': ('Success Count', 'Success %')
+        'Op. Success': ('Success Count', 'Success %')
     }
     
     for seg, (c_name, p_name) in mapping.items():
@@ -369,7 +369,7 @@ def generate_visuals(df):
     fig_b = px.bar(df_grouped_b, x=type_col, y='count', color='transaction_status', barmode='group', 
                    title="Transaction Status by Type")
     
-    # c. Distribution of Error Segments (Including Success/Operational)
+    # c. Distribution of Error Segments (Including Success/Op. Success)
     df_grouped_c = df.groupby('error_segment').size().reset_index(name='count')
     fig_c = px.pie(df_grouped_c, names='error_segment', values='count',
                    title="Overall Distribution: Success vs Failure Segments",
