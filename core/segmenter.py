@@ -227,7 +227,9 @@ def process_segmentation(df: pd.DataFrame) -> pd.DataFrame:
         "Invalid Account": "Customer",
         "External Provider Rejection": "External",
         "Data Format Error": "Internal",
-        "Uncategorized Failure": "External"
+        "Uncategorized Failure": "External",
+        "Wrong PIN": "Customer",
+        "Low balance": "Customer"
     }
 
     # --- Column Detection ---
