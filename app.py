@@ -24,7 +24,7 @@ st.markdown("Upload your transaction data below. The system will clean, segment,
 st.info("💡 **Important Notice:** Please download your transaction data **only** from this [Metabase Link](https://metabase.korba365.com/question/4590-user-transaction-table) before uploading.")
 
 # --- FILE UPLOAD ---
-uploaded_file = st.file_uploader("Drop your CSV or Excel file here", type=['csv', 'xlsx'])
+uploaded_file = st.file_uploader("Drop your CSV, Excel, or ZIP file here", type=['csv', 'xlsx', 'zip'])
 
 if uploaded_file:
     # Action Button
@@ -38,8 +38,25 @@ if uploaded_file:
             status_text.info("Phase 1/4: Reading data file...")
             if uploaded_file.name.endswith('.csv'):
                 df_raw = pd.read_csv(uploaded_file)
-            else:
+            elif uploaded_file.name.endswith('.xlsx'):
                 df_raw = pd.read_excel(uploaded_file)
+            elif uploaded_file.name.endswith('.zip'):
+                import zipfile
+                from io import BytesIO
+                # Read zip file from uploaded bytes
+                zip_bytes = uploaded_file.read()
+                with zipfile.ZipFile(BytesIO(zip_bytes)) as z:
+                    # Find first CSV file in the archive
+                    csv_names = [name for name in z.namelist() if name.lower().endswith('.csv')]
+                    if not csv_names:
+                        st.error("No CSV file found inside the uploaded ZIP archive.")
+                        st.stop()
+                    # Read the first CSV file
+                    with z.open(csv_names[0]) as f:
+                        df_raw = pd.read_csv(f)
+            else:
+                st.error("Unsupported file type.")
+                st.stop()
             progress_bar.progress(25)
             time.sleep(0.3)
 
